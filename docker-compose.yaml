@@ -10,9 +10,9 @@ services:
     volumes:
       - .:/usr/src/app
     restart: always
-  # sqlite:
-  #   build:
-  #     dockerfile: ./db/Dockerfile
-  #     context: .
-  #   volumes:
-  #     - ./db:/usr/src/db
+  sqlite:
+    build:
+      dockerfile: ./db/Dockerfile
+      context: .
+    volumes:
+      - ./db:/usr/src/db
