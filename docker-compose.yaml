@@ -1,18 +1,14 @@
 services:
-  fastapi:
-    build:
-      dockerfile: Dockerfile
-      context: .
+  api:
+    build: .
+    container_name: fastapi-app
+    volumes:
+      - ./data:/app/data
     ports:
       - 8000:8000
-    container_name: api_service
-    command: uvicorn api:app --host 0.0.0.0 --port 8000 --reload
-    volumes:
-      - .:/usr/src/app
+    # environment:
+    #   - SQLITE_DB_PATH=/app/data/app.db  # Optional: Can be used in code if you want to parameterize
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload  # --reload for development
     restart: always
-  sqlite:
-    build:
-      dockerfile: ./db/Dockerfile
-      context: .
-    volumes:
-      - ./db:/usr/src/db
+volumes:
+  data:  # Named volume for better management (optional; you can use host bind mount instead)
